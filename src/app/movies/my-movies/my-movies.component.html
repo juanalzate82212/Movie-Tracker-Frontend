@@ -1,0 +1,17 @@
+
+
+<div *ngIf="loading">
+  <p>Cargando películas...</p>
+</div>
+
+<div *ngIf="!loading && movies.length === 0">
+  <p>No tienes películas aún</p>
+</div>
+
+<ul *ngIf="!loading && movies.length > 0">
+  <li *ngFor="let movie of movies">
+    <strong>{{ movie.movie.title }}</strong>
+    <span> — {{ movie.status }}</span>
+    <span *ngIf="movie.rating"> ⭐ {{ movie.rating }}</span>
+  </li>
+</ul>

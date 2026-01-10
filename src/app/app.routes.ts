@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register';
-import { MyMoviesComponent } from './movies/my-movies/my-movies';
+import { MyMoviesComponent } from './movies/my-movies/my-movies.component';
 import { MovieSearchComponent } from './movies/movie-search/movie-search';
 import { MovieDetailComponent } from './movies/movie-detail/movie-detail';
 import { authGuard } from './core/guards/auth-guard';
