@@ -1,4 +1,4 @@
-<nav *ngIf="isLoggedIn()" class="navbar">
+<nav *ngIf="showNavBar" class="navbar">
   <div class="navbar-left">
     <a routerLink="/movies">Mis películas</a>
     <button (click) = "openSearch()">Buscar</button>

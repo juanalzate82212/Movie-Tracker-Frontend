@@ -6,13 +6,41 @@
       type="text"
       [formControl]="searchControl"
       placeholder="Buscar película..."
-      autofocus
-    />
+      autofocus />
 
-    <ul>
+    <p>RESULTADOS: {{ results.length }}</p>
+
+    <ul *ngIf="results.length > 0">
       <li *ngFor="let movie of results">
-        {{ movie.movie.title }}
+        <strong>{{ movie.title }}</strong>
+        <span *ngIf="movie.releaseDate">
+          ({{ movie.releaseDate | date:'yyyy' }})
+        </span>
       </li>
     </ul>
+
+    <p *ngIf="results.length === 0 && searchControl.value">
+      No hay resultados
+    </p>
+
+    <!--
+    @if (results.length > 0) {
+    <ul>
+      @for (movie of results; track movie.tmdbId) {
+      <li>
+        <p>ITEM</p>
+        <strong>{{ movie.title }}</strong>
+        @if (movie.releaseDate) {
+        <span>
+          ({{ movie.releaseDate | date: 'yyyy' }})
+        </span>
+        }
+      </li>
+      }
+    </ul>
+    } @else if (searchControl.value) {
+    <p>No hay resultados</p>
+    }
+ -->
   </div>
 </div>
