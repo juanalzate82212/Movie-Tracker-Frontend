@@ -1,0 +1,18 @@
+<div class="overlay">
+  <div class="overlay-content">
+    <button class="close-btn" (click)="closeOverlay()">✖</button>
+
+    <input
+      type="text"
+      [formControl]="searchControl"
+      placeholder="Buscar película..."
+      autofocus
+    />
+
+    <ul>
+      <li *ngFor="let movie of results">
+        {{ movie.movie.title }}
+      </li>
+    </ul>
+  </div>
+</div>

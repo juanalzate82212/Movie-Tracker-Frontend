@@ -1,8 +1,10 @@
 <nav *ngIf="isLoggedIn()" class="navbar">
   <div class="navbar-left">
     <a routerLink="/movies">Mis películas</a>
-    <a routerLink="/movies/search">Buscar</a>
+    <button (click) = "openSearch()">Buscar</button>
+    <app-movie-search-overlay *ngIf="searchOpen" (close)="closeSearch()"></app-movie-search-overlay>
   </div>
+  
 
   <div class="navbar-right">
     <button (click)="logout()">Logout</button>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MovieSearch } from './movie-search';
+import { MovieSearchOverlay } from './movie-search-overlay';
 
-describe('MovieSearch', () => {
-  let component: MovieSearch;
-  let fixture: ComponentFixture<MovieSearch>;
+describe('MovieSearchOverlay', () => {
+  let component: MovieSearchOverlay;
+  let fixture: ComponentFixture<MovieSearchOverlay>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MovieSearch]
+      imports: [MovieSearchOverlay]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MovieSearch);
+    fixture = TestBed.createComponent(MovieSearchOverlay);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
