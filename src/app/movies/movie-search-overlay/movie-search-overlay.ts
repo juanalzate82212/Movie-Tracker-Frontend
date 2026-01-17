@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { MoviesService } from '../movies.service';
 
 @Component({
@@ -11,41 +10,50 @@ import { MoviesService } from '../movies.service';
   templateUrl: './movie-search-overlay.html',
   styleUrl: './movie-search-overlay.css',
 })
-export class MovieSearchOverlay implements OnInit {
-  constructor(
-    private moviesService: MoviesService,
-    //private cdr: ChangeDetectorRef,
-    //private zone: NgZone,
-  ) { }
+export class MovieSearchOverlay {
   @Output() close = new EventEmitter<void>();
 
   searchControl = new FormControl('');
   results: any[] = [];
-  private destroy$ = new Subject<void>();
+  loading = false;
+  searched = false;
 
-  ngOnInit(): void {
-    this.searchControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((query) => {
-          if (!query || query.length < 2) {
-            return of([]);
-          }
-          return this.moviesService.searchMovies(query);
-        }),
-        takeUntil(this.destroy$)
-      ).subscribe((movies: any[]) => {
-        this.results = [...movies];
-        console.log('Buscando:', movies);
-      });
+  constructor(
+    private moviesService: MoviesService,
+    private cdr: ChangeDetectorRef,
+  ) {}
+
+  search(): void {
+    const query = this.searchControl.value?.trim();
+
+    if (!query || query.length < 2) {
+      this.results = [];
+      this.searched = false;
+      this.loading = false;
+      return;
+    }
+
+    this.loading = true;
+    this.searched = true;
+
+    this.moviesService.searchMovies(query).subscribe({
+      next: (movies) => {
+        console.log('RESPUESTA', movies);
+        console.log('ANTES loading', this.loading);
+        this.results = movies;
+        this.loading = false;
+        this.cdr.detectChanges();
+        console.log('DESPUES loading', this.loading);
+
+      },
+      error: (error) => {
+        console.error('Error searching movies:', error);
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+    });
   }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
+  
   closeOverlay() {
     this.close.emit();
   }

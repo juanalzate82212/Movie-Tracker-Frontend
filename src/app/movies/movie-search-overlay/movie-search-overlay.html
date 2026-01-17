@@ -1,7 +1,26 @@
 <div class="overlay">
   <div class="overlay-content">
     <button class="close-btn" (click)="closeOverlay()">✖</button>
+    <input [formControl]="searchControl" placeholder="Buscar película" />
 
+    <button type="button" (click)="search()">Buscar</button>
+
+    <p *ngIf="loading">Buscando...</p>
+
+    <ul *ngIf="!loading && results.length > 0">
+      <li *ngFor="let movie of results">
+        <strong>{{ movie.title }}</strong>
+        <span *ngIf="movie.releaseDate">
+          ({{ movie.releaseDate | date:'yyyy' }})
+        </span>
+      </li>
+    </ul>
+
+    <p *ngIf="!loading && searched && results.length === 0">
+      No hay resultados
+    </p>
+
+    <!--
     <input
       type="text"
       [formControl]="searchControl"
@@ -22,7 +41,7 @@
     <p *ngIf="results.length === 0 && searchControl.value">
       No hay resultados
     </p>
-
+    -->
     <!--
     @if (results.length > 0) {
     <ul>
