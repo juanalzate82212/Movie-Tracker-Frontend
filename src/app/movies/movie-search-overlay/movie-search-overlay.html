@@ -8,7 +8,7 @@
     <p *ngIf="loading">Buscando...</p>
 
     <ul *ngIf="!loading && results.length > 0">
-      <li *ngFor="let movie of results">
+      <li *ngFor="let movie of results" (click)="selectMovie(movie)">
         <strong>{{ movie.title }}</strong>
         <span *ngIf="movie.releaseDate">
           ({{ movie.releaseDate | date:'yyyy' }})

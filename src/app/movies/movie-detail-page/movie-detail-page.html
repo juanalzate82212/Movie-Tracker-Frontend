@@ -1,0 +1,30 @@
+<div *ngIf="loading">Cargando...</div>
+
+<div *ngIf="movie">
+  <h1>{{ movie.title }}</h1>
+  <p>{{ movie.overview }}</p>
+
+  <button (click)="openAddModal()">
+    Agregar a mis películas
+  </button>
+</div>
+
+<div *ngIf="showAddForm" class="add-box">
+  <label>
+    Estado:
+    <select [(ngModel)]="status">
+      <option value="pending">Pendiente</option>
+      <option value="watched">Vista</option>
+    </select>
+  </label>
+
+  <div *ngIf="status === 'watched'">
+    <label>
+      Rating (opcional):
+      <input type="number" min="1" max="10" [(ngModel)]="rating" />
+    </label>
+  </div>
+
+  <button (click)="addMovie()">Guardar</button>
+</div>
+

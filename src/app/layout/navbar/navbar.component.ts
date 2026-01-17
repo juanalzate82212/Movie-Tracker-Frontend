@@ -4,11 +4,12 @@ import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { MovieSearchOverlay } from "../../movies/movie-search-overlay/movie-search-overlay";
 import { filter } from 'rxjs/operators';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, MovieSearchOverlay],
+  imports: [CommonModule, MovieSearchOverlay, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, OnInit, ChangeDetectorRef, NgZone } fr
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { MoviesService } from '../movies.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-search-overlay',
@@ -20,6 +21,7 @@ export class MovieSearchOverlay {
 
   constructor(
     private moviesService: MoviesService,
+    private router: Router,
     private cdr: ChangeDetectorRef,
   ) {}
 
@@ -54,6 +56,11 @@ export class MovieSearchOverlay {
     });
   }
   
+  selectMovie(movie: any) {
+    this.close.emit();
+    this.router.navigate(['/movies', movie.tmdbId]);
+  }
+
   closeOverlay() {
     this.close.emit();
   }

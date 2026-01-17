@@ -18,7 +18,19 @@ export class MoviesService {
     searchMovies(query: string): Observable<any[]> {
         return this.http.get<any[]>(
             `${this.apiUrl}/tmdb/search`,
-            { params: { query }}
+            { params: { query } }
         );
+    }
+
+    getMovieDetail(tmdbId: number) {
+        return this.http.get(`${this.apiUrl}/tmdb/movie/${tmdbId}`);
+    }
+
+    addMovie(data: { 
+        tmdbId: number; 
+        status: 'pending' | 'watched'; 
+        rating?: number;
+    }) {
+        return this.http.post(`${this.apiUrl}/movies`, data);
     }
 }
