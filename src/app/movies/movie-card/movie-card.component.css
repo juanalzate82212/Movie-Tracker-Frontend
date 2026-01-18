@@ -27,7 +27,7 @@
   margin: 0 0 4px;
 }
 
-.release {
+.release, .director {
   font-size: 13px;
   color: #bbb;
 }
@@ -49,4 +49,25 @@
   margin-top: 6px;
   color: #ffc107;
   font-weight: bold;
+}
+
+.details-btn {
+  margin-top: auto;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  align-self: flex-end;
+  color: #444;
+}
+
+.details-btn:hover {
+  color: #000;
+  transform: translateX(4px);
+}
+
+.date {
+  font-size: 11px;
+  color: #888;
+  font-style: italic;
 }

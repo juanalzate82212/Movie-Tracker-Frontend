@@ -31,6 +31,13 @@ export class MovieDetailPageComponent {
     });
   }
 
+  get posterUrl(): string {
+    if (!this.movie.posterPath) {
+      return 'assets/no-poster.png';
+    }
+    return `https://image.tmdb.org/t/p/w500${this.movie.posterPath}`;
+  }
+
   showAddForm = false;
 
   status: 'pending' | 'watched' = 'pending';
@@ -38,6 +45,10 @@ export class MovieDetailPageComponent {
 
   openAddModal() {
     this.showAddForm = true;
+  }
+
+  closeAddModal() {
+    this.showAddForm = false;
   }
 
   addMovie() {

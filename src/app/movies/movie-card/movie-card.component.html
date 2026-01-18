@@ -4,6 +4,10 @@
   <div class="info">
     <h3>{{ movie.movie.title }}</h3>
 
+    <p class="director">
+      Director: {{ movie.movie.director }}
+    </p>
+
     <p class="release">
       {{ movie.movie.releaseDate | date: 'yyyy' }}
     </p>
@@ -18,5 +22,22 @@
     <p *ngIf="movie.rating !== undefined" class="rating">
       ⭐ {{ movie.rating }}/10
     </p>
+
+    <p class="date">
+      Agregada:
+      {{ movie.createdAt | date: 'mediumDate' }}
+    </p>
+
+    <p class="date" *ngIf="movie.updatedAt !== movie.createdAt">
+      Actualización:
+      {{ movie.updatedAt | date: 'mediumDate' }}
+    </p>
+
+    <button
+      class="details-btn"
+      [routerLink]="['/movies', movie.tmdbId]">
+      ➜
+    </button>
+
   </div>
 </div>
