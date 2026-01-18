@@ -15,3 +15,21 @@
     <span *ngIf="movie.rating"> ⭐ {{ movie.rating }}</span>
   </li>
 </ul>
+
+<div class="container">
+  <h1>Mis Películas</h1>
+
+  <p *ngIf="loading">Cargando...</p>
+
+  <div class="grid" *ngIf="!loading && movies.length > 0">
+    <app-movie-card
+      *ngFor="let movie of movies"
+      [movie]="movie"
+    ></app-movie-card>
+  </div>
+
+  <p *ngIf="!loading && movies.length === 0">
+    No tienes películas aún.
+  </p>
+</div>
+

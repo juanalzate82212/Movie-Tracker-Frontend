@@ -2,12 +2,14 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MoviesService } from '../movies.service';
 import { Movie } from '../models/movie.model';
+import { MovieCardComponent } from "../movie-card/movie-card.component";
 
 @Component({
   selector: 'app-my-movies',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MovieCardComponent],
   templateUrl: './my-movies.component.html',
+  styleUrls: ['./my-movies.css'],
 })
 export class MyMoviesComponent implements OnInit {
   movies: Movie[] = [];

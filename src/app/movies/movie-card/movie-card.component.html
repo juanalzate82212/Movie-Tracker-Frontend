@@ -1,0 +1,22 @@
+<div class="movie-card">
+  <img [src]="posterUrl" [alt]="movie.title" />
+
+  <div class="info">
+    <h3>{{ movie.movie.title }}</h3>
+
+    <p class="release">
+      {{ movie.movie.releaseDate | date: 'yyyy' }}
+    </p>
+
+    <p class="status">
+      Estado:
+      <span [class.watched]="movie.status === 'watched'">
+        {{ movie.status === 'watched' ? 'Vista' : 'Pendiente' }}
+      </span>
+    </p>
+
+    <p *ngIf="movie.rating !== undefined" class="rating">
+      ⭐ {{ movie.rating }}/10
+    </p>
+  </div>
+</div>
