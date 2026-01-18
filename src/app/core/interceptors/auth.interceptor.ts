@@ -1,9 +1,11 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   //console.log('INTERCEPTOR EJECUTADO');
-
-  const token = localStorage.getItem('access_token');
+  const authService = inject(AuthService);
+  const token = authService.getToken();
 
   if (token) {
     //console.log('TOKEN ENCONTRADO');
