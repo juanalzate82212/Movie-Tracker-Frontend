@@ -33,4 +33,8 @@ export class MoviesService {
     }) {
         return this.http.post(`${this.apiUrl}/movies`, data);
     }
+
+    deleteMovie(movieId: string) {
+        return this.http.delete(`${this.apiUrl}/movies/${movieId}`);
+    }
 }

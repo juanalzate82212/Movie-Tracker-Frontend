@@ -67,6 +67,14 @@
     <button class="add-btn" (click)="openAddModal()">
       + Agregar a mis películas
     </button>
+    
+    <p *ngIf="successMessage" class="success-msg">
+      ✅ {{ successMessage }}
+    </p>
+
+    <p *ngIf="errorMessage" class="error-msg">
+      ❌ {{ errorMessage }}
+    </p>
   </div>
 
   <div *ngIf="showAddForm" class="add-box">
@@ -91,9 +99,11 @@
     </label>
 
     <div class="actions">
-      <button class="save-btn" [disabled]="status === 'watched' && !rating"  (click)="addMovie()">Guardar</button>
+      <button class="save-btn" [disabled]="status === 'watched' && (!rating || rating < 1 || rating > 10)"
+        (click)="addMovie()">Guardar</button>
       <button class="cancel-btn" (click)="closeAddModal()">Cancelar</button>
     </div>
+
   </div>
 
 </div>

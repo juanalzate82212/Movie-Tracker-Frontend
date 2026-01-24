@@ -35,4 +35,17 @@ export class MyMoviesComponent implements OnInit {
       },
     });
   }
+
+  deleteMovie(movieId: string) {
+    this.moviesService.deleteMovie(movieId).subscribe({
+      next: () => {
+        this.movies = this.movies.filter(movie => movie.id !== movieId);
+        this.cdr.detectChanges();
+        console.log('Película eliminada', movieId);
+      },
+      error: (err) => {
+        console.error('Error eliminando película', err);
+      },
+    });
+  }
 }

@@ -124,3 +124,20 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success-msg {
+  margin-top: 12px;
+  color: #2e7d32;
+  font-size: 14px;
+}
+
+.error-msg {
+  margin-top: 12px;
+  color: #c62828;
+  font-size: 14px;
+}

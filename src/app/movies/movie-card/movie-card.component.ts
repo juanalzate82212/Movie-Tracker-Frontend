@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 })
 export class MovieCardComponent {
   @Input() movie!: any;
+  @Output() delete = new EventEmitter<string>();
 
   get posterUrl(): string {
     if (!this.movie.movie.posterPath) {
@@ -22,6 +23,10 @@ export class MovieCardComponent {
     }
     */
     return `https://image.tmdb.org/t/p/w500${this.movie.movie.posterPath}`;
+  }
+  
+  onDelete() {
+    this.delete.emit(this.movie.id);
   }
 
 }

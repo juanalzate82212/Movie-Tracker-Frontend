@@ -1,5 +1,5 @@
 export interface Movie {
-  _id: string;
+  id: string;
   tmdbId: number;
   status: 'watched' | 'pending';
   rating?: number;

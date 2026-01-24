@@ -25,6 +25,7 @@
     <app-movie-card
       *ngFor="let movie of movies"
       [movie]="movie"
+      (delete)="deleteMovie($event)"
     ></app-movie-card>
   </div>
 

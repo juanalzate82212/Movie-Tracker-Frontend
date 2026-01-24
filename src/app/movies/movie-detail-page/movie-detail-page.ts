@@ -51,14 +51,40 @@ export class MovieDetailPageComponent {
     this.showAddForm = false;
   }
 
+  successMessage = '';
+  errorMessage = '';
+
   addMovie() {
+    if (this.status === 'watched' && (!this.rating || this.rating < 1 || this.rating > 10)) {
+      this.errorMessage = 'La calificación debe estar entre 1 y 10.';
+      this.cdr.detectChanges();
+      return;
+    }
     this.movieService.addMovie({
       tmdbId: this.tmdbId,
       status: this.status,
       rating: this.status === 'watched' ? this.rating : undefined,
-    }).subscribe(() => {
-      alert('Película agregada a tu lista!');
-      this.showAddForm = false;
+    }).subscribe({
+      next: () => {
+        alert('Película agregada a tu lista!');
+        this.successMessage = '¡Película agregada a tu lista!';
+        this.errorMessage = '';
+        this.showAddForm = false;
+        this.rating = undefined;
+        this.cdr.detectChanges();
+        setTimeout(() => {
+          this.successMessage = '';
+          this.cdr.detectChanges();
+        }, 3000);
+      },
+      error: () => {
+        alert('Error al agregar la película.');
+        this.successMessage = '';
+        this.errorMessage = 'Error al agregar la película.';
+        this.cdr.detectChanges();
+      }
     });
   }
+
+
 }
