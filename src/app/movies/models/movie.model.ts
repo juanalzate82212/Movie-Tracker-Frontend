@@ -3,6 +3,8 @@ export interface Movie {
   tmdbId: number;
   status: 'watched' | 'pending';
   rating?: number;
+  createdAt: string;
+  updatedAt: string;
 
   movie: {
     tmdbId: number;
