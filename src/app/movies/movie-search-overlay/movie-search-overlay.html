@@ -1,3 +1,4 @@
+<!--
 <div class="overlay">
   <div class="overlay-content">
     <button class="close-btn" (click)="closeOverlay()">✖</button>
@@ -20,46 +21,55 @@
       No hay resultados
     </p>
 
-    <!--
+  </div>
+</div>
+-->
+
+<div class="overlay" (click)="closeOverlay()">
+  <div class="overlay-content" (click)="$event.stopPropagation()">
+
+    <button class="close-btn" (click)="closeOverlay()">✖</button>
+
+    <section class="page-header">
+      <h2>Buscar película</h2>
+    </section>
+
     <input
-      type="text"
       [formControl]="searchControl"
-      placeholder="Buscar película..."
-      autofocus />
+      placeholder="Escribe el nombre de una película..."
+    />
 
-    <p>RESULTADOS: {{ results.length }}</p>
+    <button class="search-btn" type="button" (click)="search()">
+      Buscar
+    </button>
 
-    <ul *ngIf="results.length > 0">
-      <li *ngFor="let movie of results">
-        <strong>{{ movie.title }}</strong>
-        <span *ngIf="movie.releaseDate">
-          ({{ movie.releaseDate | date:'yyyy' }})
-        </span>
-      </li>
-    </ul>
+    <div class="results">
 
-    <p *ngIf="results.length === 0 && searchControl.value">
-      No hay resultados
-    </p>
-    -->
-    <!--
-    @if (results.length > 0) {
-    <ul>
-      @for (movie of results; track movie.tmdbId) {
-      <li>
-        <p>ITEM</p>
-        <strong>{{ movie.title }}</strong>
-        @if (movie.releaseDate) {
-        <span>
-          ({{ movie.releaseDate | date: 'yyyy' }})
-        </span>
-        }
-      </li>
-      }
-    </ul>
-    } @else if (searchControl.value) {
-    <p>No hay resultados</p>
-    }
- -->
+      <p class="loading" *ngIf="loading">Buscando...</p>
+
+      <div
+        class="result-item"
+        *ngFor="let movie of results"
+        (click)="selectMovie(movie)"
+      >
+        <img
+          *ngIf="movie.posterPath"
+          [src]="'https://image.tmdb.org/t/p/w92' + movie.posterPath"
+          alt="{{ movie.title }}"
+        />
+
+        <div class="info">
+          <strong>{{ movie.title }}</strong>
+          <span *ngIf="movie.releaseDate">
+            {{ movie.releaseDate | date:'yyyy' }}
+          </span>
+        </div>
+      </div>
+
+      <p class="empty" *ngIf="!loading && searched && results.length === 0">
+        No hay resultados
+      </p>
+
+    </div>
   </div>
 </div>
