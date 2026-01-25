@@ -23,11 +23,12 @@ export class RegisterComponent {
     private router: Router,
     private cdr: ChangeDetectorRef,
   ) {
-    this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required, Validators.minLength(6)],
-      confirmPassword: ['', Validators.required],
-    },
+    this.form = this.fb.group(
+      {
+        email: ['', {validators: [Validators.required, Validators.email], updateOn: 'change'}],
+        password: ['', {validators: [Validators.required, Validators.minLength(6)], updateOn: 'change'}],
+        confirmPassword: ['', Validators.required],
+      },
       { validators: this.passwordsMatch }
     );
   }
@@ -43,14 +44,14 @@ export class RegisterComponent {
       this.form.markAllAsTouched
       return;
     }
-    
+
     const { email, password } = this.form.value;
 
     this.loading = true;
     this.errorMessage = '';
     this.successMessage = '';
 
-    this.authService.register(email, password).subscribe({
+    this.authService.register(email!, password!).subscribe({
       next: () => {
         this.loading = false;
         this.successMessage = 'Registro exitoso. Puedes iniciar sesión ahora.';
@@ -58,7 +59,11 @@ export class RegisterComponent {
       },
       error: (err) => {
         this.loading = false;
-        this.errorMessage = err.error?.message || 'Error en el registro';
+        if (err.status === 409) {
+          this.errorMessage = 'Correo ya registrado';
+        } else {
+          this.errorMessage = 'Error en el registro';
+        }
         this.cdr.detectChanges();
       },
     });

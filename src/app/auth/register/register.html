@@ -12,10 +12,11 @@
                     autofocus
                     name="email"
                     formControlName="email" />
-                <small
-                    *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
-                    Email inválido
-                </small>
+                <p class="error msj"
+                    *ngIf="form.get('email')?.touched && form.get('email')?.errors">
+                    <span *ngIf="form.get('email')?.errors?.['required']">Email requerido</span>
+                    <span *ngIf="form.get('email')?.errors?.['email']">Email inválido</span>
+                </p>
             </div>
 
             <div class="form-group">
@@ -25,10 +26,11 @@
                     autofocus
                     name="password"
                     formControlName="password" />
-                <small
-                    *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
-                    Mínimo 6 caracteres
-                </small>
+                <p class="error msj"
+                    *ngIf="form.get('password')?.touched && form.get('password')?.errors">
+                    <span *ngIf="form.get('password')?.errors?.['required']">Contraseña requerida</span>
+                    <span *ngIf="form.get('password')?.errors?.['minlength']">Mínimo 6 caracteres</span>
+                </p>
             </div>
 
             <div class="form-group">
@@ -38,10 +40,10 @@
                     autofocus
                     name="confirmPassword"
                     formControlName="confirmPassword" />
-                <small
+                <p class="error msj"
                     *ngIf="form.errors?.['passwordMismatch'] && form.get('confirmPassword')?.touched">
                     Las contraseñas no coinciden
-                </small>
+                </p>
             </div>
 
             <button class="btn-primary" type="submit" [disabled]="loading">
