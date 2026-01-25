@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+/* Fondo global */
+html, body {
+  height: 100%;
+}
+
+/*
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  background: linear-gradient(
+    to bottom,
+    #1f2937 20%,
+    #1e88e5 90%,
+    #42a5f5 100%
+  );
+
+  background-attachment: fixed;
+}
+*/
+
+body {
+  background-color: #1f2937;
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.03),
+      rgba(255,255,255,0.03)
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.02) 0,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 42px
+    );
+}

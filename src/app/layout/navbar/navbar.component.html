@@ -1,12 +1,18 @@
 <nav *ngIf="showNavBar" class="navbar">
   <div class="navbar-left">
-    <a routerLink="/movies" routerLinkActive="active">Mis películas</a>
-    <button (click) = "openSearch()">Buscar</button>
+    <span class="logo">🎬 MovieTracker</span>
+
+    <a routerLink="/movies" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Mis películas</a>
+    <a routerLink="/account" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Mi cuenta</a>
+
+    <button class="search-btn" (click) = "openSearch()">
+      🔍 Buscar
+    </button>
     <app-movie-search-overlay *ngIf="searchOpen" (close)="closeSearch()"></app-movie-search-overlay>
   </div>
   
 
   <div class="navbar-right">
-    <button (click)="logout()">Logout</button>
+    <button class="logout-btn" (click)="logout()">Logout</button>
   </div>
 </nav>

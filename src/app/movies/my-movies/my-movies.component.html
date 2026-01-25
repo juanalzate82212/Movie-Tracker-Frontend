@@ -1,5 +1,5 @@
 
-
+<!--
 <div *ngIf="loading">
   <p>Cargando películas...</p>
 </div>
@@ -8,7 +8,7 @@
   <p>No tienes películas aún</p>
 </div>
 
-<!--
+
 <ul *ngIf="!loading && movies.length > 0">
   <li *ngFor="let movie of movies">
     <strong>{{ movie.movie.title }}</strong>
@@ -20,33 +20,36 @@
 
 <!-- Filters Bar -->
 
-<div class="filters-bar">
-  <div class="search-box">
-    <span class="icon">🔍</span>
-    <input
-      type="text"
-      class="search-input"
-      placeholder="Buscar por título..."
-      [(ngModel)]="filterText" />
-  </div>
-  
-  <select [(ngModel)]="filterStatus">
-    <option value="all">Todas</option>
-    <option value="pending">Pendientes</option>
-    <option value="watched">Vistas</option>
-  </select>
-
-  <select [(ngModel)]="sortBy">
-    <option value="createdAt">Más recientes</option>
-    <option value="title">Título A–Z</option>
-    <option value="rating">Rating (mejor primero)</option>
-  </select>
-</div>
-
 <!-- Movie List -->
 
 <div class="container">
-  <h1>Mis Películas</h1>
+  <section class="page-header">
+    <h1>Mis Películas</h1>
+    <p class="subtitle">Tu colección personal de cine</p>
+  </section>
+
+  <div class="filters-bar">
+    <div class="search-box">
+      <span class="icon">🔍</span>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Buscar por título..."
+        [(ngModel)]="filterText" />
+    </div>
+
+    <select [(ngModel)]="filterStatus">
+      <option value="all">Todas</option>
+      <option value="pending">Pendientes</option>
+      <option value="watched">Vistas</option>
+    </select>
+
+    <select [(ngModel)]="sortBy">
+      <option value="createdAt">Más recientes</option>
+      <option value="title">Título A–Z</option>
+      <option value="rating">Rating (mejor primero)</option>
+    </select>
+  </div>
 
   <p *ngIf="loading">Cargando...</p>
 

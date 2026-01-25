@@ -1,26 +1,92 @@
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
-  padding: 12px 24px;
-  background-color: #1f2937;
-  color: white;
+  align-items: center;
+
+  padding: 14px 32px;
+  background: rgba(15, 20, 27, 0.9);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
-.navbar a {
-  color: white;
+/* Lado izquierdo */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.1rem;
   margin-right: 16px;
-  text-decoration: none;
+  color: white;
 }
 
-.navbar button {
-  background: #ef4444;
+/* Links */
+.navbar a {
+  color: #e5e7eb;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.navbar a:hover {
+  color: #ffffff;
+}
+
+.navbar a.active {
+  color: #60a5fa;
+}
+
+.navbar a.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background-color: #60a5fa;
+  border-radius: 2px;
+}
+
+/* Botón buscar */
+.search-btn {
+  background: #2563eb;
   border: none;
   color: white;
-  padding: 6px 12px;
+  padding: 6px 14px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 500;
 }
 
-.active{
-  font-weight: bold;
-  text-decoration: underline;
+.search-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Lado derecho */
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Logout */
+.logout-btn {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  background: #ef4444;
+  color: white;
 }
