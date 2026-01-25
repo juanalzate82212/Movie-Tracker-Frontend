@@ -29,6 +29,13 @@ export class AuthService {
       );
   }
 
+  register(email: string, password: string) {
+    return this.http.post(`${this.apiUrl}/auth/register`, {
+      email,
+      password,
+    });
+  }
+
   saveToken(token: string) {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem(this.tokenKey, token);
@@ -51,4 +58,5 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
 }

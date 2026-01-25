@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -6,18 +6,18 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,],
   templateUrl: './login.component.html',
   styleUrl: './login.css',
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
-  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -27,7 +27,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  loading = false;
+  errorMessage: string ='';
+
   onSubmit() {
+    this.loading = true;
+    this.errorMessage = '';
     if (this.form.invalid) {
       return;
     }
@@ -36,11 +41,18 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(email, password).subscribe({
       next: () => {
+        this.loading = false;
         this.router.navigate(['/movies']);
       },
       error: () => {
+        this.loading = false;
         this.errorMessage = 'Credenciales incorrectas';
+        this.cdr.detectChanges();
       },
     });
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/register']);
   }
 }

@@ -1,1 +1,61 @@
-<p>register works!</p>
+<div class="auth-container">
+    <div class="auth-card">
+        <h1 class="logo">🎬 MovieTracker</h1>
+        <p class="subtitle">Organiza tus películas favoritas</p>
+        <p class="subtitle">Crear cuenta</p>
+
+        <form [formGroup]="form" (ngSubmit)="register()">
+            <div class="form-group">
+                <label>Email</label>
+                <input
+                    type="email"
+                    autofocus
+                    name="email"
+                    formControlName="email" />
+                <small
+                    *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+                    Email inválido
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    autofocus
+                    name="password"
+                    formControlName="password" />
+                <small
+                    *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+                    Mínimo 6 caracteres
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label>Confirmar contraseña</label>
+                <input
+                    type="password"
+                    autofocus
+                    name="confirmPassword"
+                    formControlName="confirmPassword" />
+                <small
+                    *ngIf="form.errors?.['passwordMismatch'] && form.get('confirmPassword')?.touched">
+                    Las contraseñas no coinciden
+                </small>
+            </div>
+
+            <button class="btn-primary" type="submit" [disabled]="loading">
+                <span *ngIf="!loading">Registrarse</span>
+                <span *ngIf="loading">Creando cuenta...</span>
+            </button>
+        </form>
+
+        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+        <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+
+        <p class="switch">
+            ¿Ya tienes cuenta?
+            <a (click)="navigateToLogin()">Inicia sesión</a>
+        </p>
+    </div>
+</div>
