@@ -15,6 +15,14 @@ export class MovieDetailPageComponent {
   movie: any;
   loading = true;
 
+  showAddForm = false;
+
+  status: 'pending' | 'watched' = 'pending';
+  rating?: number;
+
+  successMessage = '';
+  errorMessage = '';
+
   constructor(
     private route: ActivatedRoute,
     private movieService: MoviesService,
@@ -22,13 +30,33 @@ export class MovieDetailPageComponent {
   ) { }
 
   ngOnInit() {
-    this.tmdbId = Number(this.route.snapshot.paramMap.get('tmdbId'));
-
-    this.movieService.getMovieDetail(this.tmdbId).subscribe(movie => {
-      this.movie = movie;
-      this.loading = false;
-      this.cdr.detectChanges();
+    this.route.paramMap.subscribe(params => {
+      this.tmdbId = Number(params.get('tmdbId'));
+      this.resetState();
+      this.loadMovie();
     });
+  }
+
+  loadMovie(){
+    this.loading = true;
+    this.movieService.getMovieDetail(this.tmdbId).subscribe({
+      next: (movie) => {
+        this.movie = movie;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
+  }
+
+  resetState() {
+    this.showAddForm = false;
+    this.status = 'pending';
+    this.rating = undefined;
+    this.successMessage = '';
+    this.errorMessage = '';
   }
 
   get posterUrl(): string {
@@ -38,11 +66,6 @@ export class MovieDetailPageComponent {
     return `https://image.tmdb.org/t/p/w500${this.movie.posterPath}`;
   }
 
-  showAddForm = false;
-
-  status: 'pending' | 'watched' = 'pending';
-  rating?: number;
-
   openAddModal() {
     this.showAddForm = true;
   }
@@ -50,9 +73,6 @@ export class MovieDetailPageComponent {
   closeAddModal() {
     this.showAddForm = false;
   }
-
-  successMessage = '';
-  errorMessage = '';
 
   addMovie() {
     if (this.status === 'watched' && (!this.rating || this.rating < 1 || this.rating > 10)) {
@@ -66,7 +86,7 @@ export class MovieDetailPageComponent {
       rating: this.status === 'watched' ? this.rating : undefined,
     }).subscribe({
       next: () => {
-        alert('Película agregada a tu lista!');
+        //alert('Película agregada a tu lista!');
         this.successMessage = '¡Película agregada a tu lista!';
         this.errorMessage = '';
         this.showAddForm = false;

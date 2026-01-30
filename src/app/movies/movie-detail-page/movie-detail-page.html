@@ -1,38 +1,5 @@
-<!--
 
-<div *ngIf="loading">Cargando...</div>
-
-<div *ngIf="movie">
-  <h1>{{ movie.title }}</h1>
-  <p>{{ movie.overview }}</p>
-
-  <button (click)="openAddModal()">
-    Agregar a mis películas
-  </button>
-</div>
-
-<div *ngIf="showAddForm" class="add-box">
-  <label>
-    Estado:
-    <select [(ngModel)]="status">
-      <option value="pending">Pendiente</option>
-      <option value="watched">Vista</option>
-    </select>
-  </label>
-
-  <div *ngIf="status === 'watched'">
-    <label>
-      Rating (opcional):
-      <input type="number" min="1" max="10" [(ngModel)]="rating" />
-    </label>
-  </div>
-
-  <button (click)="addMovie()">Guardar</button>
-</div>
-
--->
-
-<div *ngIf="loading">Cargando...</div>
+<div *ngIf="loading" class="loading">Cargando...</div>
 
 <div class="movie-detail" *ngIf="movie">
   <div class="poster">
@@ -44,14 +11,14 @@
   <div class="info">
     <h1>
       {{ movie.title }}
-      <span *ngIf="movie.releaseDate">
-        ({{ movie.releaseDate | date:'yyyy' }})
-      </span>
+
     </h1>
 
     <p class="meta">
       <span *ngIf="movie.director">🎬 {{ movie.director }}</span>
-      <span *ngIf="movie.runtime">• ⏱ {{ movie.runtime }} min</span>
+      <span *ngIf="movie.releaseDate"> • {{ movie.releaseDate | date:'yyyy'
+        }}</span>
+      <span *ngIf="movie.runtime"> • ⏱ {{ movie.runtime }} min</span>
     </p>
 
     <div class="genres">
@@ -67,7 +34,7 @@
     <button class="add-btn" (click)="openAddModal()">
       + Agregar a mis películas
     </button>
-    
+
     <p *ngIf="successMessage" class="success-msg">
       ✅ {{ successMessage }}
     </p>
@@ -78,38 +45,36 @@
   </div>
 
   <div *ngIf="showAddForm" class="add-box">
-    <h3>Agregar película</h3>
+    <div class="add-form-card">
 
-    <label>
-      Estado
-      <select [(ngModel)]="status">
-        <option value="pending">Pendiente</option>
-        <option value="watched">Vista</option>
-      </select>
-    </label>
+      <h3>Agregar película</h3>
 
-    <label *ngIf="status === 'watched'">
-      Rating (opcional)
-      <input
-        type="number"
-        min="1"
-        max="10"
-        [(ngModel)]="rating"
-        placeholder="1 - 10" />
-    </label>
+      <label>
+        Estado
+        <select [(ngModel)]="status">
+          <option value="pending">Pendiente</option>
+          <option value="watched">Vista</option>
+        </select>
+      </label>
 
-    <div class="actions">
-      <button class="save-btn" [disabled]="status === 'watched' && (!rating || rating < 1 || rating > 10)"
-        (click)="addMovie()">Guardar</button>
-      <button class="cancel-btn" (click)="closeAddModal()">Cancelar</button>
+      <label *ngIf="status === 'watched'">
+        Rating (opcional)
+        <input
+          type="number"
+          min="1"
+          max="10"
+          [(ngModel)]="rating"
+          placeholder="1 - 10" />
+      </label>
+
+      <div class="actions">
+        <button class="save-btn"
+          [disabled]="status === 'watched' && (!rating || rating < 1 || rating > 10)"
+          (click)="addMovie()">Guardar</button>
+        <button class="cancel-btn" (click)="closeAddModal()">Cancelar</button>
+      </div>
+
     </div>
-
   </div>
 
 </div>
-
-<!--
-<ng-template #loadingTpl>
-  <p>Cargando detalles...</p>
-</ng-template>
--->

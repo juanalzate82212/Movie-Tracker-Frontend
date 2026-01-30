@@ -1,5 +1,5 @@
 .movie-card {
-  background: #1c1c1c;
+  background: #ffffff;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
@@ -20,7 +20,7 @@
 
 .info {
   padding: 12px;
-  color: #fff;
+  color: #000000;
 }
 
 .info h3 {
@@ -30,7 +30,7 @@
 
 .release, .director {
   font-size: 13px;
-  color: #bbb;
+  color: #888;
 }
 
 .status {
@@ -48,7 +48,7 @@
 
 .rating {
   margin-top: 6px;
-  color: #ffc107;
+  color: #a17900;
   font-weight: bold;
 }
 
@@ -95,4 +95,36 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.go-left {
+  display: flex;
+  /*justify-content: flex-start;*/
+  align-items: center;
+}
+
+.delete-right {
+  display: flex;
+  /*justify-content: flex-end;*/
+  align-items: center;
+}
+
+.delete-btn {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #ef4444;
+  color: white;
 }

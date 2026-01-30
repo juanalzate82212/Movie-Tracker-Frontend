@@ -33,17 +33,21 @@
       {{ movie.updatedAt | date: 'mediumDate' }}
     </p>
     <div class="actions">
-      <button
-        class="details-btn"
-        [routerLink]="['/movies', movie.tmdbId]">
-        ➜
-      </button>
+      <div class="go-left">
+        <button
+          class="details-btn"
+          [routerLink]="['/movies', movie.tmdbId]">
+          ➜
+        </button>
+      </div>
 
-      <button
-        class="delete-btn"
-        (click)="onDelete()">
-        🗑️
-      </button>
+      <div class="delete-right">
+        <button
+          class="delete-btn"
+          (click)="onDelete()">
+          🗑️
+        </button>
+      </div>
     </div>
   </div>
 </div>
