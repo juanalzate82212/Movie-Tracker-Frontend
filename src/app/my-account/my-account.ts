@@ -10,6 +10,15 @@ interface UserProfile {
   createdAt: string;
 }
 
+interface UserStats {
+  totalMovies: number;
+  watched: number;
+  pending: number;
+  averageRating: number | null;
+  mostAddedTmdbId: number | null;
+  mostAddedCount: number;
+}
+
 @Component({
   selector: 'app-my-account',
   standalone: true,
@@ -19,6 +28,7 @@ interface UserProfile {
 })
 export class MyAccount implements OnInit{
   user?: UserProfile;
+  stats?: UserStats;
   loading = true;
   error = '';
 
@@ -41,6 +51,20 @@ export class MyAccount implements OnInit{
         this.loading = false;
         this.cdr.detectChanges();
       }
-    })
+    });
+
+    this.http.get<UserStats>(`${this.apiUrl}/users/me/stats`).subscribe({
+      next: (stats) => {
+        console.log('STATS BACKEND', stats);
+        this.stats = stats;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.error = 'Error cargando estadisticas';
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 }

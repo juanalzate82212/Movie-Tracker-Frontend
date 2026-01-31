@@ -10,9 +10,8 @@
   <div *ngIf="user" class="account-card">
     <img
       class="avatar"
-      [src]="user.profileImage"
-      alt="Foto de perfil"
-    />
+      [src]="user.profileImage || 'assets/default-avatar.png'"
+      alt="Foto de perfil" />
 
     <h2>{{ user.email }}</h2>
 
@@ -20,4 +19,34 @@
       Usuario desde {{ user.createdAt | date: 'longDate' }}
     </p>
   </div>
+
+  <div *ngIf="stats" class="stats-grid">
+    <div class="stat-card">
+      <span class="number">{{ stats.totalMovies }}</span>
+      <span class="label">Películas agregadas</span>
+    </div>
+
+    <div class="stat-card">
+      <span class="number">{{ stats.watched }}</span>
+      <span class="label">Vistas</span>
+    </div>
+
+    <div class="stat-card">
+      <span class="number">{{ stats.pending }}</span>
+      <span class="label">Pendientes</span>
+    </div>
+
+    <div class="stat-card">
+      <span class="number">
+        {{ stats.averageRating ? (stats.averageRating | number:'1.1-1') : '—' }}
+      </span>
+      <span class="label">Rating promedio</span>
+    </div>
+
+    <div class="stat-card" *ngIf="stats.mostAddedTmdbId">
+      <span class="number">{{ stats.mostAddedCount }}</span>
+      <span class="label">Más veces agregada</span>
+    </div>
+  </div>
+
 </div>
