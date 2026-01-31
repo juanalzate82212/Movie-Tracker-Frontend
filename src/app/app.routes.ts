@@ -5,6 +5,7 @@ import { MyMoviesComponent } from './movies/my-movies/my-movies.component';
 import { MovieSearchOverlay } from './movies/movie-search-overlay/movie-search-overlay';
 import { MovieDetailPageComponent } from './movies/movie-detail-page/movie-detail-page';
 import { authGuard } from './core/guards/auth-guard';
+import { MyAccount } from './my-account/my-account';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -23,6 +24,12 @@ export const routes: Routes = [
   {
     path: 'movies/:tmdbId',
     component: MovieDetailPageComponent,
+    canActivate: [authGuard],
+  },
+
+  {
+    path: 'account',
+    component: MyAccount,
     canActivate: [authGuard],
   },
 
