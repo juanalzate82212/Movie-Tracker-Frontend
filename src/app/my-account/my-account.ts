@@ -29,6 +29,7 @@ interface UserStats {
 export class MyAccount implements OnInit{
   user?: UserProfile;
   stats?: UserStats;
+  mostWatchedTitle?: string;
   loading = true;
   error = '';
 
@@ -57,6 +58,9 @@ export class MyAccount implements OnInit{
       next: (stats) => {
         console.log('STATS BACKEND', stats);
         this.stats = stats;
+        if(stats.mostAddedTmdbId) {
+          this.fetchMostWatchedTitle(stats.mostAddedTmdbId);
+        }
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -66,5 +70,20 @@ export class MyAccount implements OnInit{
         this.cdr.detectChanges();
       }
     });
+  }
+
+  get profileImageUrl(): string {
+    if (!this.user?.profileImage || this.user.profileImage === 'default') {
+      return 'thumbs2.png';
+    }
+    return this.user.profileImage;
+  }
+
+  fetchMostWatchedTitle(tmdbId: number) {
+    this.http.get<any>(`${this.apiUrl}/tmdb/movie/${tmdbId}`).subscribe(
+      (movie) => {
+        this.mostWatchedTitle = movie.title;
+        this.cdr.detectChanges();
+      });
   }
 }

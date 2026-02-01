@@ -1,51 +1,67 @@
-<div class="account-container">
-  <div *ngIf="loading" class="loading">
-    Cargando perfil...
+<div class="account-page" *ngIf="!loading && user">
+
+  <section class="page-header">
+    <h1>Mi Cuenta</h1>
+    <p class="subtitle">Tu información y estadísticas</p>
+  </section>
+  <!-- PERFIL -->
+  <div class="profile-wrapper">
+    <div class="profile-card">
+      <img
+        class="avatar"
+        [src]="profileImageUrl"
+        alt="Foto de perfil" />
+
+      <div class="profile-info">
+        <p class="email">
+          {{ user.email }}
+        </p>
+        <p class="since">
+          Miembro desde {{ user.createdAt | date:'longDate' }}
+        </p>
+      </div>
+    </div>
   </div>
 
-  <div *ngIf="error" class="error">
-    {{ error }}
-  </div>
+  <!-- STATS -->
+  <div class="stats-wrapper" *ngIf="stats">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">🎬</div>
+        <span class="stat-number">{{ stats.totalMovies }}</span>
+        <span class="stat-label">Películas agregadas</span>
+      </div>
 
-  <div *ngIf="user" class="account-card">
-    <img
-      class="avatar"
-      [src]="user.profileImage || 'assets/default-avatar.png'"
-      alt="Foto de perfil" />
+      <div class="stat-card">
+        <div class="stat-icon">👁️</div>
+        <span class="stat-number">{{ stats.watched }}</span>
+        <span class="stat-label">Vistas</span>
+      </div>
 
-    <h2>{{ user.email }}</h2>
+      <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <span class="stat-number">{{ stats.pending }}</span>
+        <span class="stat-label">Pendientes</span>
+      </div>
 
-    <p class="since">
-      Usuario desde {{ user.createdAt | date: 'longDate' }}
-    </p>
-  </div>
-
-  <div *ngIf="stats" class="stats-grid">
-    <div class="stat-card">
-      <span class="number">{{ stats.totalMovies }}</span>
-      <span class="label">Películas agregadas</span>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <span class="stat-number">
+          {{ stats.averageRating ? (stats.averageRating | number:'1.1-1') : '—'
+          }}
+        </span>
+        <span class="stat-label">Rating promedio</span>
+      </div>
     </div>
 
-    <div class="stat-card">
-      <span class="number">{{ stats.watched }}</span>
-      <span class="label">Vistas</span>
-    </div>
+    <div class="most-watched-card" *ngIf="mostWatchedTitle">
+      <div class="stat-icon big">🔥</div>
 
-    <div class="stat-card">
-      <span class="number">{{ stats.pending }}</span>
-      <span class="label">Pendientes</span>
-    </div>
-
-    <div class="stat-card">
-      <span class="number">
-        {{ stats.averageRating ? (stats.averageRating | number:'1.1-1') : '—' }}
-      </span>
-      <span class="label">Rating promedio</span>
-    </div>
-
-    <div class="stat-card" *ngIf="stats.mostAddedTmdbId">
-      <span class="number">{{ stats.mostAddedCount }}</span>
-      <span class="label">Más veces agregada</span>
+      <div class="content">
+        <span class="stat-label">Película más vista</span>
+        <h3 class="stat-number">{{ mostWatchedTitle }}</h3>
+        <p>Vista {{ stats.mostAddedCount }} veces</p>
+      </div>
     </div>
   </div>
 
