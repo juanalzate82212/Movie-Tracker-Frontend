@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { Favorites } from './favorites/favorites';
 
 interface UserProfile {
   id: string;
@@ -22,7 +23,7 @@ interface UserStats {
 @Component({
   selector: 'app-my-account',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Favorites],
   templateUrl: './my-account.html',
   styleUrl: './my-account.css',
 })

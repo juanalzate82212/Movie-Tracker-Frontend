@@ -1,0 +1,27 @@
+<section class="favorites-section">
+  <h2>⭐ Mis películas favoritas</h2>
+
+  <!-- Loading -->
+  <p *ngIf="loading">Cargando favoritas...</p>
+
+  <!-- Empty state -->
+  <div *ngIf="!loading && movies.length === 0" class="empty-state">
+    <p>Aún no tienes películas favoritas</p>
+    <p class="hint">Agrega hasta 5 películas a tu Top ⭐</p>
+  </div>
+
+  <!-- Favorites -->
+  <div class="favorites-grid" *ngIf="!loading && movies.length > 0">
+    <div class="favorite-card" *ngFor="let movie of movies">
+      <img
+        [src]="'https://image.tmdb.org/t/p/w300' + movie.poster_path"
+        alt="{{ movie.title }}"
+      />
+
+      <div class="info">
+        <h3>{{ movie.title }}</h3>
+        <button (click)="remove(movie.id)">Quitar</button>
+      </div>
+    </div>
+  </div>
+</section>

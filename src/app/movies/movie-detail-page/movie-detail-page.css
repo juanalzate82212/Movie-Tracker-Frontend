@@ -59,12 +59,42 @@
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  margin-left: 20px;
 }
 
 .add-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(59,130,246,0.4);
 }
+
+.favorite-btn{
+  background: transparent;
+  border: 2px solid #facc15;
+  color: white;
+  padding: 10px 28px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  margin-left: 20px;
+}
+
+.favorite-btn:hover{
+  background: #facc15;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 238, 0, 0.4);
+}
+
+.favorite-btn.active {
+  background: #facc15;
+  color: black;
+}
+
+.favorite-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 
 /* Caja del formulario */
 

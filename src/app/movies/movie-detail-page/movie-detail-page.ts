@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MoviesService } from '../movies.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FavoritesService } from '../../my-account/favorites/favorites.service';
 
 @Component({
   selector: 'app-movie-detail-page',
@@ -23,9 +24,15 @@ export class MovieDetailPageComponent {
   successMessage = '';
   errorMessage = '';
 
+  isFavorite = false;
+  favorites: number[] = [];
+  favoriteLoading = false;
+  favoriteError = '';
+
   constructor(
     private route: ActivatedRoute,
     private movieService: MoviesService,
+    private favoritesService: FavoritesService,
     private cdr: ChangeDetectorRef,
   ) { }
 
@@ -35,6 +42,13 @@ export class MovieDetailPageComponent {
       this.resetState();
       this.loadMovie();
     });
+
+    this.favoritesService.getFavorites().subscribe({
+      next: (favorites) => {
+        this.favorites = favorites;
+        this.isFavorite = favorites.includes(this.tmdbId);
+      }
+    })
   }
 
   loadMovie(){
@@ -106,5 +120,36 @@ export class MovieDetailPageComponent {
     });
   }
 
+  toggleFavorite() {
+    this.favoriteError = '';
+    this.favoriteLoading = true;
 
+    let updatedFavorites: number[];
+
+    if (this.isFavorite) {
+      updatedFavorites = this.favorites.filter(id => id !== this.tmdbId);
+    } else {
+      if (this.favorites.length >= 5) {
+        this.favoriteError = 'Solo puedes tener 5 favoritas';
+        this.favoriteLoading = false;
+        this.cdr.detectChanges();
+        return;
+      }
+      updatedFavorites = [...this.favorites, this.tmdbId];
+    }
+
+    this.favoritesService.updateFavorites(updatedFavorites).subscribe({
+      next: (favorites) => {
+        this.favorites = favorites;
+        this.isFavorite = favorites.includes(this.tmdbId);
+        this.favoriteLoading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.favoriteError = 'Error actualizando favoritas';
+        this.favoriteLoading = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
 }

@@ -42,6 +42,13 @@
     <p *ngIf="errorMessage" class="error-msg">
       ❌ {{ errorMessage }}
     </p>
+
+    <button class="favorite-btn" [class.active]="isFavorite" [disabled]="favoriteLoading" (click)="toggleFavorite()">
+      <span *ngIf="!isFavorite">⭐ Agregar a favoritas</span>
+      <span *ngIf="isFavorite">⭐ Quitar de favoritas</span>
+    </button>
+
+    <p class="error" *ngIf="favoriteError">{{ favoriteError }}</p>
   </div>
 
   <div *ngIf="showAddForm" class="add-box">
