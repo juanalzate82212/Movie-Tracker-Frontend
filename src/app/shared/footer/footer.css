@@ -1,0 +1,29 @@
+.app-footer {
+  margin-top: 60px;
+  padding: 24px 16px;
+  background: #0f172a;
+  color: #e5e7eb;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.separator {
+  opacity: 0.4;
+}
+
+a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
