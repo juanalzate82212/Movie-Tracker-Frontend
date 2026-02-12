@@ -1,4 +1,6 @@
 <div class="app-container">
     <app-navbar></app-navbar>
+    <app-beta-bannner *ngIf="isLoggedIn$ | async"></app-beta-bannner>
     <router-outlet></router-outlet>
+    <app-footer></app-footer>
 </div>

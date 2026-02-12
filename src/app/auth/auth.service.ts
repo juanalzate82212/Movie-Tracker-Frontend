@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,9 @@ import { isPlatformBrowser } from '@angular/common';
 export class AuthService {
   private apiUrl = environment.apiUrl;
   private tokenKey = 'access_token';
+
+  private loggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
+  isLoggedIn$ = this.loggedInSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -25,6 +29,7 @@ export class AuthService {
       .pipe(
         tap((response) => {
           this.saveToken(response.access_token);
+          this.loggedInSubject.next(true);
         }),
       );
   }
@@ -36,7 +41,7 @@ export class AuthService {
     });
   }
 
-  saveToken(token: string) {
+  private saveToken(token: string) {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem(this.tokenKey, token);
     }
@@ -49,14 +54,24 @@ export class AuthService {
     return null;
   }
 
+  private hasToken(): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      return !!localStorage.getItem(this.tokenKey);
+    }
+    return false;
+  }
+
+
+
   logout() {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(this.tokenKey);
     }
+    this.loggedInSubject.next(false);
   }
 
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    return this.hasToken();
   }
 
 }
