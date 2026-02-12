@@ -1,16 +1,13 @@
-<section class="favorites-section">
+<!-- <section class="favorites-section">
   <h2>⭐ Mis películas favoritas</h2>
 
-  <!-- Loading -->
   <p *ngIf="loading">Cargando favoritas...</p>
 
-  <!-- Empty state -->
   <div *ngIf="!loading && movies.length === 0" class="empty-state">
     <p>Aún no tienes películas favoritas</p>
     <p class="hint">Agrega hasta 5 películas a tu Top ⭐</p>
   </div>
 
-  <!-- Favorites -->
   <div class="favorites-grid" *ngIf="!loading && movies.length > 0">
     <div class="favorite-card" *ngFor="let movie of movies">
       <img
@@ -21,6 +18,51 @@
       <div class="info">
         <h3>{{ movie.title }}</h3>
         <button (click)="remove(movie.id)">Quitar</button>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="favorites-section">
+  <h2>⭐ Mis películas Favoritas</h2>
+
+  <p *ngIf="loading">Cargando favoritas...</p>
+
+  <div *ngIf="!loading && movies.length === 0" class="empty-state">
+    <p>Aún no tienes películas favoritas</p>
+    <p class="hint">Agrega hasta 5 películas a tu Top</p>
+  </div>
+
+  <div class="favorites-grid" *ngIf="!loading">
+    <div
+      class="favorite-slot"
+      *ngFor="let movie of favoriteSlots; let i = index">
+      <span class="slot-number">{{ i + 1 }}</span>
+
+      <button
+        *ngIf="movie"
+        class="remove-btn"
+        (click)="remove(movie.tmdbId)"
+        title="Quitar de favoritas">
+        ✕
+      </button>
+
+      <!-- Movie exists -->
+      <div *ngIf="movie" class="movie-mini-card">
+        <div class="poster-wrapper">
+          <img
+            [src]="'https://image.tmdb.org/t/p/w300' + movie.posterPath"
+            alt="{{ movie.title }}" />
+        </div>
+        <div class="mini-info">
+          <h4>{{ movie.title }}</h4>
+          <p>{{ movie.releaseDate | date:'yyyy' }}</p>
+        </div>
+      </div>
+
+      <!-- Empty slot -->
+      <div *ngIf="!movie" class="empty-slot">
+        <span>Vacío</span>
       </div>
     </div>
   </div>
