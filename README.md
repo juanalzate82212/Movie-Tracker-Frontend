@@ -1,59 +1,86 @@
-# MovieTrackerFrontend
+# 🎬 Movie Tracker
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+Frontend application for the Movie Tracker platform.
 
-## Development server
+This Angular application allows users to search for movies, authenticate securely, and manage a personal movie tracking list. It connects to a NestJS backend API and integrates movie data from TMDB.
 
-To start a local development server, run:
+---
+
+## 🚀 Live Application
+
+Frontend: https://movie-tracker-ps7b.onrender.com/
+
+---
+
+## 🧠 What This Application Does
+
+- Allows users to register and log in
+- Authenticates users using JWT
+- Protects private routes
+- Enables users to search movies via TMDB
+- Allows adding and removing movies from a personal list
+- Gives to user their statistics about the movies they have added
+- Communicates securely with a deployed backend API
+- Provides a responsive and structured user interface
+
+This project demonstrates a complete frontend-to-backend production architecture.
+
+---
+
+## 🛠 Technologies Used
+
+- **Angular 21**
+- **TypeScript**
+- **RxJS**
+- **Angular Router**
+- **Angular HttpClient**
+- **JWT Authentication**
+- **Render (Static Site Hosting)**
+
+---
+
+## 🔐 Authentication Flow
+
+1. User logs in or registers.
+2. Backend returns a JWT token.
+3. Token is stored on the client.
+4. Authenticated requests include: Authorization: Bearer <token>
+
+Protected routes are guarded using Angular route guards.
+
+---
+
+## 🌍 Architecture
+
+Angular SPA (Frontend)  
+⬇  
+NestJS REST API (Backend)  
+⬇  
+MongoDB Atlas (Database)  
+
+The frontend is deployed as a static site on Render and connects to a production backend hosted separately.
+
+---
+
+## 🖥 Development
+
+To run locally:
 
 ```bash
+npm install
 ng serve
 ```
+App runs at: http://localhost:4200
+Backend runs locally at: http://localhost:3000
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+To production:
 
 ```bash
-ng generate component component-name
+ng build --configuration production
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 👨‍💻 Author: Juan José Alzate García
 
-## Building
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
